@@ -38,6 +38,14 @@
         <developerConnection>https://github.com/hsluoyz</developerConnection>
     </scm>
 
+    <developers>
+        <developer>
+            <name>Xu Tan</name>
+            <email>1428427011@qq.com</email>
+            <url>https://github.com/tx2002</url>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

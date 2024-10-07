@@ -26,7 +26,7 @@ import org.casbin.jcasbin.model.Model;
 public class Example {
     public static void main(String[] args) {
 
-        // 定义 Casbin 模型
+        // Define the Casbin model
         String modelText = "[request_definition]\n" +
                 "r = sub, obj, act\n\n" +
                 "[policy_definition]\n" +
@@ -39,11 +39,11 @@ public class Example {
                 "[matchers]\n" +
                 "m = g(r.sub, p.sub) && g2(r.obj, p.obj) && r.act == p.act";
 
-        // 加载模型
+        // Load model
         Model m = new Model();
         m.loadModelFromText(modelText);
 
-        // 定义策略
+        // Define policy
         String line = "p, alice, data1, read\n" +
                 "p, bob, data2, write\n" +
                 "p, data_group_admin, data_group, write\n\n" +
@@ -51,23 +51,20 @@ public class Example {
                 "g2, data1, data_group\n" +
                 "g2, data2, data_group";
 
-        // 创建 StringAdapter 适配器
+        // Create a StringAdapter
         StringAdapter sa = new StringAdapter(line);
 
-        // 创建 Enforcer，加载模型和策略
+        // Create Enforcer, and load model and policy
         Enforcer e = new Enforcer(m, sa);
-
-        // 加载策略
+        
         e.loadPolicy();
-
-        // 检查权限
+        // check permissions
         if (e.enforce("alice", "data1", "read")) {
             System.out.println("permitted");
         } else {
             System.out.println("rejected");
         }
 
-        // 保存修改的策略
         e.savePolicy();
     }
 }

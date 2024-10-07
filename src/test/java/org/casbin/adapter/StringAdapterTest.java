@@ -1,3 +1,17 @@
+// Copyright 2024 The string-adapter Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package org.casbin.adapter;
 
 import org.casbin.jcasbin.main.Enforcer;
@@ -26,24 +40,23 @@ public class StringAdapterTest {
                 "p, data_group_admin, /bob_data/*, POST\n" +
                 "g, alice, data_group_admin";
 
-        // 使用 StringAdapter 来创建适配器
+        // Use StringAdapter to create an adapter
         StringAdapter sa = new StringAdapter(line);
 
-        // 创建 Casbin Model
+        // create Model
         Model md = new Model();
         md.loadModelFromText(conf);
 
-        // 创建 Enforcer 并加载模型和策略
+        // Create an Enforcer and load the model and policy
         Enforcer e = new Enforcer(md, sa);
 
-        // 测试 Enforce 规则
-        String sub = "alice"; // 用户
-        String obj = "/alice_data/resource1"; // 资源
-        String act = "POST"; // 操作
+        // Test the Enforce rules
+        String sub = "alice";
+        String obj = "/alice_data/resource1";
+        String act = "POST";
 
         boolean result = e.enforce(sub, obj, act);
 
-        // 断言结果应该为 true
         Assert.assertTrue(result);
     }
 
@@ -65,24 +78,23 @@ public class StringAdapterTest {
                 "p, data_group_admin, data3, write\n" +
                 "g, alice, data_group_admin";
 
-        // 使用 StringAdapter 来创建适配器
+        // Use StringAdapter to create an adapter
         StringAdapter sa = new StringAdapter(line);
 
-        // 创建 Casbin Model
+        // create Model
         Model md = new Model();
         md.loadModelFromText(conf);
 
-        // 创建 Enforcer 并加载模型和策略
+        // Create an Enforcer and load the model and policy
         Enforcer e = new Enforcer(md, sa);
 
-        // 测试 Enforce 规则
-        String sub = "alice"; // 用户
-        String obj = "data1"; // 资源
-        String act = "read";  // 操作
+        // Test the Enforce rules
+        String sub = "alice";
+        String obj = "data1";
+        String act = "read";
 
         boolean result = e.enforce(sub, obj, act);
 
-        // 断言结果应该为 true
         Assert.assertTrue(result);
     }
 }
